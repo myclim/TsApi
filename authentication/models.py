@@ -4,7 +4,7 @@ from django.db import models
 
 class RoleModel(models.Model):
     ROLES = [("admin", "Admin"), ("manager", "Manager"), ("guest", "Guest")]
-    name = models.CharField(max_length=50, choices=ROLES, default="guest", unique=True)
+    name = models.CharField(max_length=50, choices=ROLES, unique=True)
 
     def __str__(self):
         return self.name
@@ -28,6 +28,10 @@ class UserModel(models.Model):
     def delete_user(self):
         self.is_active = False
         self.save()
+
+    @property
+    def is_authenticated(self):
+        return True
 
     def __str__(self):
         return f"{self.first_name}: {self.email}"

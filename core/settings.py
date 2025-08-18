@@ -43,7 +43,6 @@ INSTALLED_APPS = [
 
     'authentication',
     'goods',
-
 ]
 
 MIDDLEWARE = [
@@ -55,7 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'authentication.middleware.JwtMiddleware',
+    # 'authentication.middleware.JwtMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -90,11 +89,10 @@ DATABASES = {
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "authentication.authentication.JWTAuthentication",
+    ],
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
