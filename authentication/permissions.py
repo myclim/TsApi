@@ -8,6 +8,10 @@ class UserCustomPermission(BasePermission):
     Проверяет, есть ли у пользователя нужное разрешение.
     """
     def has_permission(self, request, view):
+
+        if request.method == "GET":
+            return True
+        
         user = getattr(request, "user", None)
 
         if not user or not user.is_authenticated or not user.is_active:

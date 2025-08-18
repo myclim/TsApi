@@ -23,7 +23,12 @@ class ResourceView(APIView):
         self.required_permission = self.get_required_permission()
         super().check_permissions(request)
 
-    def get(self, request):
+    def get(self, request, product_id=None):
+        if product_id:
+            product = get_object_or_404(ProductModel, id=product_id)
+            serializer = ProductSerializer(product)
+            return Response(serializer.data, status=200)
+        
         products = ProductModel.objects.all()
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data, status=200)
@@ -32,7 +37,7 @@ class ResourceView(APIView):
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
             product = serializer.save()
-            return Response({"id": product.id}, status=200)
+            return Response({"id": product.id}, status=201)
         return Response(serializer.errors, status=400)
 
     def put(self, request, product_id):
@@ -46,4 +51,4 @@ class ResourceView(APIView):
     def delete(self, request, product_id):
         product = get_object_or_404(ProductModel, id=product_id)
         product.delete()
-        return Response(status=200)
+        return Response(status=204)

@@ -17,7 +17,7 @@ class JWTAuthentication(BaseAuthentication):
 
         payload = decode_jwt(token)
         if not payload:
-            raise AuthenticationFailed("Неверный или истёкший токен")
+            return None
 
         try:
             user = UserModel.objects.get(id=payload["user_id"], is_active=True)

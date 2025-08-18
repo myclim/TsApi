@@ -5,7 +5,9 @@ app_name = "user"
 
 urlpatterns = [
     path("login/", UserLoginView.as_view(), name="user-login"),
+    path('logout/', UserLogoutView.as_view(), name="user-logout"),
     path("register/", UserRegisterView.as_view(), name="user-register"),
     path("update/", UserUpdateView.as_view(), name="user-update"),
     path("delete/", UserDeleteView.as_view(), name="user-delete"),
+    path("roles/permissions/", RolePermissionView.as_view(), name="role-permissions"),
 ]
